@@ -416,7 +416,7 @@ func (c *Context) GetPostFormArray(key string) ([]string, bool) {
 }
 
 // FormFile returns the first file for the provided form key.
-func (c *Context) FormFile(name string) (*multipart.FileHeader, error) {
+func (c *Context) FormFile(name string) (multipart.File, *multipart.FileHeader, error) {
 	c.Request.ParseMultipartForm(c.engine.MaxMultipartMemory)
 	fd, fh, err := c.Request.FormFile(name)
 	return fd, fh, err
