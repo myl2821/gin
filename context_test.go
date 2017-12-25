@@ -69,7 +69,7 @@ func TestContextFormFile(t *testing.T) {
 	c, _ := CreateTestContext(httptest.NewRecorder())
 	c.Request, _ = http.NewRequest("POST", "/", buf)
 	c.Request.Header.Set("Content-Type", mw.FormDataContentType())
-	f, err := c.FormFile("file")
+	_, f, err := c.FormFile("file")
 	if assert.NoError(t, err) {
 		assert.Equal(t, "test", f.Filename)
 	}
@@ -123,7 +123,7 @@ func TestSaveUploadedCreateFailed(t *testing.T) {
 	c, _ := CreateTestContext(httptest.NewRecorder())
 	c.Request, _ = http.NewRequest("POST", "/", buf)
 	c.Request.Header.Set("Content-Type", mw.FormDataContentType())
-	f, err := c.FormFile("file")
+	_, f, err := c.FormFile("file")
 	if assert.NoError(t, err) {
 		assert.Equal(t, "test", f.Filename)
 	}

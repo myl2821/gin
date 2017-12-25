@@ -417,8 +417,9 @@ func (c *Context) GetPostFormArray(key string) ([]string, bool) {
 
 // FormFile returns the first file for the provided form key.
 func (c *Context) FormFile(name string) (*multipart.FileHeader, error) {
-	_, fh, err := c.Request.FormFile(name)
-	return fh, err
+	c.Request.ParseMultipartForm(c.engine.MaxMultipartMemory)
+	fd, fh, err := c.Request.FormFile(name)
+	return fd, fh, err
 }
 
 // MultipartForm is the parsed multipart form, including file uploads.
